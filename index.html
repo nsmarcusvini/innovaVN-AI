@@ -1,31 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="InnovaVN AI — Soluções inteligentes com inteligência artificial para transformar o seu negócio. Automação, chatbots e análise de dados.">
-  <meta name="keywords" content="inteligência artificial, automação, IA, InnovaVN, tecnologia, chatbot, machine learning">
+  <meta name="description"
+    content="InnovaVN AI — Soluções inteligentes com inteligência artificial para transformar o seu negócio. Automação, chatbots e análise de dados.">
+  <meta name="keywords"
+    content="inteligência artificial, automação, IA, InnovaVN, tecnologia, chatbot, machine learning">
   <title>InnovaVN AI — Inteligência Artificial para o seu Negócio</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='75' font-family='sans-serif' font-size='70' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="container navbar__inner">
       <a href="#" class="navbar__logo">
-        <img src="public/innovavnai-logo.jpeg" alt="InnovaVN AI Logo" class="navbar__logo-img">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="navbar__logo-icon">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          <path d="M2 12h20" />
+        </svg>
+        <span class="navbar__logo-plus">+</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="navbar__logo-icon">
+          <rect width="16" height="12" x="4" y="8" rx="2" />
+          <path d="M2 14h2" />
+          <path d="M20 14h2" />
+          <path d="M15 13v2" />
+          <path d="M9 13v2" />
+          <path d="M12 8V4H8" />
+        </svg>
+        <span class="navbar__logo-text">InnovaVN Ai</span>
       </a>
       <ul class="navbar__links" id="nav-links">
         <li><a href="#hero">Início</a></li>
         <li><a href="#about">Sobre</a></li>
         <li><a href="#services">Serviços</a></li>
-        <li><a href="#contact">Contato</a></li>
       </ul>
-      <a href="#contact" class="btn btn--primary navbar__cta">Fale Conosco</a>
+      <a href="#contact" class="btn btn--primary navbar__cta">
+        Fale com nossos consultores
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </a>
       <button class="navbar__toggle" id="nav-toggle" aria-label="Abrir menu">
         <span></span>
         <span></span>
@@ -44,20 +75,29 @@
     </div>
     <div class="container hero__inner">
       <div class="hero__content">
-        <div class="badge hero__badge animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;" data-delay="0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <div class="badge hero__badge animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;"
+          data-delay="0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
           Inteligência Artificial
         </div>
         <h1 class="hero__title animate-on-scroll" style="animation: fadeSlideIn 0.8s var(--ease-out) 0.3s both;">
           Transforme o seu negócio com <span class="text-gradient">IA de ponta</span>
         </h1>
         <p class="hero__subtitle animate-on-scroll" style="animation: fadeSlideIn 0.8s var(--ease-out) 0.45s both;">
-          Automatize processos, potencialize resultados e descubra novas oportunidades com soluções inteligentes feitas sob medida.
+          Automatize processos, potencialize resultados e descubra novas oportunidades com soluções inteligentes feitas
+          sob medida.
         </p>
         <div class="hero__actions animate-on-scroll" style="animation: fadeSlideIn 0.8s var(--ease-out) 0.6s both;">
           <a href="#contact" class="btn btn--primary btn--lg">
             Comece Agora
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
           </a>
           <a href="#about" class="btn btn--outline btn--lg">Saiba Mais</a>
         </div>
@@ -81,32 +121,74 @@
     </div>
   </section>
 
+  <!-- ===== LOGO CAROUSEL ===== -->
+  <section class="logos">
+    <div class="logos__badge-container">
+      <span class="logos__badge">Empresas que confiam na InnovaVN Ai</span>
+    </div>
+    <div class="logos__wrapper">
+      <div class="logos__track">
+        <!-- Group 1 -->
+        <div class="logos__item"><img src="public/logo-mr.cut" alt="Mr. Cut"></div>
+        <div class="logos__item"><img src="public/cross-itaim-logo.com" alt="Cross Itaim"></div>
+        <div class="logos__item"><img src="public/belms-gas.png" alt="Belms-Gás"></div>
+        <div class="logos__item"><img src="public/logo-mr.cut" alt="Mr. Cut"></div>
+        <div class="logos__item"><img src="public/cross-itaim-logo.com" alt="Cross Itaim"></div>
+        <div class="logos__item"><img src="public/belms-gas.png" alt="Belms-Gás"></div>
+        <!-- Group 2 (Duplicate for Infinite Loop) -->
+        <div class="logos__item"><img src="public/logo-mr.cut" alt="Mr. Cut"></div>
+        <div class="logos__item"><img src="public/cross-itaim-logo.com" alt="Cross Itaim"></div>
+        <div class="logos__item"><img src="public/belms-gas.png" alt="Belms-Gás"></div>
+        <div class="logos__item"><img src="public/logo-mr.cut" alt="Mr. Cut"></div>
+        <div class="logos__item"><img src="public/cross-itaim-logo.com" alt="Cross Itaim"></div>
+        <div class="logos__item"><img src="public/belms-gas.png" alt="Belms-Gás"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== ABOUT SECTION ===== -->
   <section class="section section--alt about" id="about">
     <div class="container">
       <div class="section__header">
-        <span class="section__label animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0s both;">Sobre nós</span>
-        <h2 class="section__title animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.1s both;">Quem é a <span class="text-gradient">InnovaVN AI</span>?</h2>
-        <p class="section__desc animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;">Somos especialistas em inteligência artificial, focados em criar soluções que realmente fazem a diferença no seu negócio.</p>
+        <span class="section__label animate-on-scroll"
+          style="animation: fadeSlideIn 0.7s var(--ease-out) 0s both;">Sobre nós</span>
+        <h2 class="section__title animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.1s both;">Quem
+          é a <span class="text-gradient">InnovaVN AI</span>?</h2>
+        <p class="section__desc animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;">Somos
+          especialistas em inteligência artificial, focados em criar soluções que realmente fazem a diferença no seu
+          negócio.</p>
       </div>
       <div class="about__grid">
         <div class="about__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0s both;">
           <div class="about__card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
           </div>
           <h3>Inovação</h3>
-          <p>Utilizamos as tecnologias mais avançadas do mercado para entregar soluções inovadoras e eficientes para sua empresa.</p>
+          <p>Utilizamos as tecnologias mais avançadas do mercado para entregar soluções inovadoras e eficientes para sua
+            empresa.</p>
         </div>
         <div class="about__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.1s both;">
           <div class="about__card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
           </div>
           <h3>Personalização</h3>
           <p>Cada solução é desenhada exclusivamente para as necessidades e objetivos específicos da sua empresa.</p>
         </div>
         <div class="about__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;">
           <div class="about__card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
           </div>
           <h3>Performance</h3>
           <p>Resultados reais e mensuráveis que aceleram o crescimento e a eficiência operacional do seu negócio.</p>
@@ -124,15 +206,19 @@
     </div>
     <div class="container" style="position: relative; z-index: 1;">
       <div class="section__header">
-        <span class="section__label animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0s both;">Serviços</span>
-        <h2 class="section__title animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.1s both;">O que oferecemos</h2>
-        <p class="section__desc animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;">Soluções inteligentes para cada etapa do seu negócio.</p>
+        <span class="section__label animate-on-scroll"
+          style="animation: fadeSlideIn 0.7s var(--ease-out) 0s both;">Serviços</span>
+        <h2 class="section__title animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.1s both;">O
+          que oferecemos</h2>
+        <p class="section__desc animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;">
+          Soluções inteligentes para cada etapa do seu negócio.</p>
       </div>
       <div class="services__grid">
         <div class="services__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0s both;">
           <div class="services__card-number">01</div>
           <h3>Chatbots Inteligentes</h3>
-          <p>Atendimento automatizado 24/7 com IA conversacional que entende e resolve as demandas dos seus clientes.</p>
+          <p>Atendimento automatizado 24/7 com IA conversacional que entende e resolve as demandas dos seus clientes.
+          </p>
         </div>
         <div class="services__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.1s both;">
           <div class="services__card-number">02</div>
@@ -142,7 +228,8 @@
         <div class="services__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.15s both;">
           <div class="services__card-number">03</div>
           <h3>Análise de Dados</h3>
-          <p>Transforme dados brutos em insights estratégicos com modelos de machine learning e dashboards interativos.</p>
+          <p>Transforme dados brutos em insights estratégicos com modelos de machine learning e dashboards interativos.
+          </p>
         </div>
         <div class="services__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.2s both;">
           <div class="services__card-number">04</div>
@@ -157,7 +244,8 @@
         <div class="services__card animate-on-scroll" style="animation: fadeSlideIn 0.7s var(--ease-out) 0.3s both;">
           <div class="services__card-number">06</div>
           <h3>Criação de Aplicativos</h3>
-          <p>Soluções mobile sob medida, conectando a sua marca diretamente às mãos dos seus clientes em iOS e Android.</p>
+          <p>Soluções mobile sob medida, conectando a sua marca diretamente às mãos dos seus clientes em iOS e Android.
+          </p>
         </div>
 
         <!-- 24/7 AI Dashboard Element -->
@@ -168,13 +256,20 @@
               <div class="ai-dashboard__title">A IA trabalha 24 horas por dia</div>
             </div>
             <div class="ai-dashboard__icon-btn" aria-label="Sincronizar">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 2v6h-6" />
+                <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                <path d="M3 22v-6h6" />
+                <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+              </svg>
             </div>
           </div>
 
           <div class="ai-dashboard__chart">
             <div class="ai-dashboard__chart-labels">
-               <span>02h</span><span>04h</span><span>06h</span><span style="font-weight: 800; color: #713F12;">08h</span><span>10h</span><span>12h</span><span>14h</span><span>16h</span><span>18h</span><span>20h</span><span>22h</span><span>00h</span>
+              <span>02h</span><span>04h</span><span>06h</span><span
+                style="font-weight: 800; color: #713F12;">08h</span><span>10h</span><span>12h</span><span>14h</span><span>16h</span><span>18h</span><span>20h</span><span>22h</span><span>00h</span>
             </div>
             <div class="ai-dashboard__chart-bars">
               <div class="ai-dashboard__bar"></div>
@@ -197,7 +292,10 @@
               <div class="ai-dashboard__footer-label">Métrica atual</div>
               <div class="ai-dashboard__select">
                 <span>Atendimentos Concluídos</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
               </div>
             </div>
             <div class="ai-dashboard__footer-right">
@@ -214,7 +312,7 @@
 
   <!-- ===== DARK FOOTER SECTION (Ref: design-system) ===== -->
   <section class="footer-dark" id="contact">
-    
+
     <!-- Background Watermark -->
     <div class="footer-dark__watermark">INNOVA</div>
 
@@ -223,7 +321,11 @@
       <div class="footer-dark__waitlist">
         <input type="email" placeholder="Fale com a InnovaVN AI..." class="footer-dark__input">
         <button class="footer-dark__submit" aria-label="Enviar">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
         </button>
       </div>
 
@@ -236,13 +338,27 @@
           </h2>
           <div class="footer-dark__socials">
             <a href="#" aria-label="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect width="4" height="12" x="2" y="9" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
             </a>
             <a href="#" aria-label="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
             </a>
             <a href="#" aria-label="Email">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
             </a>
           </div>
         </div>
@@ -250,7 +366,11 @@
         <!-- Right: Prominent CTA Card -->
         <div class="footer-dark__card">
           <div class="footer-dark__card-bg-icon">
-             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
           </div>
           <h3 class="footer-dark__card-title">Transforme seu Negócio</h3>
           <p class="footer-dark__card-desc">
@@ -259,7 +379,11 @@
           <div class="footer-dark__card-bottom">
             <span class="footer-dark__card-version">IA SOLUTIONS 2.0</span>
             <a href="https://wa.me/" class="footer-dark__card-link" target="_blank" aria-label="Falar pelo WhatsApp">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
             </a>
           </div>
         </div>
@@ -273,4 +397,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
