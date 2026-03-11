@@ -879,94 +879,216 @@ h4 {
   line-height: var(--lh-relaxed);
 }
 
-
 /* ============================
-   11. SERVICES SECTION
+   11. SERVICES SECTION (Premium Accordion)
    ============================ */
-.services {
-  padding: var(--space-30) 0;
+.services--dark {
+  background-color: #1C1C1C;
+  color: #FFFFFF;
+  padding: 120px 0;
 }
 
-.services .section__label {
-  color: var(--color-primary-light);
+.services--dark .section__label {
+  color: #888888;
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-transform: capitalize;
+  letter-spacing: normal;
+  font-size: 14px;
+  margin-bottom: 24px;
 }
 
-.services .section__title,
-.services .section__desc {
+.services--dark .section__title--lg {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  margin-bottom: 24px;
   color: #FFFFFF;
 }
 
-.services__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-8);
+.services--dark .section__desc--sm {
+  font-size: 18px;
+  color: #888888;
+  max-width: 700px;
+  margin-bottom: 80px;
 }
 
-.services__card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-10) var(--space-8);
-  transition: all var(--duration-base) var(--ease-out);
-  position: relative;
+.services__accordion {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.accordion__item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.accordion__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.accordion__number {
+  font-size: 16px;
+  font-family: var(--font-mono);
+  color: #555555;
+  margin-right: 40px;
+  font-weight: 500;
+}
+
+.accordion__title {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 600;
+  color: #AAAAAA;
+  flex: 1;
+  transition: color 0.4s var(--ease-smooth);
+}
+
+.accordion__icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #AAAAAA;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+/* Hover & Active States */
+.accordion__item:hover .accordion__title,
+.accordion__item.active .accordion__title {
+  color: #FFFFFF;
+}
+
+.accordion__item:hover .accordion__icon {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+}
+
+.accordion__item.active .accordion__icon {
+  background-color: #FFFFFF;
+  color: #000000;
+  transform: rotate(45deg);
+}
+
+.accordion__item.active .accordion__header {
+  padding-bottom: 20px;
+}
+
+/* Content Area */
+.accordion__content {
+  max-height: 0;
   overflow: hidden;
-}
-
-.services__card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-primary);
+  transition: max-height 0.4s var(--ease-smooth), opacity 0.4s var(--ease-smooth);
   opacity: 0;
-  transition: opacity var(--duration-base) var(--ease-smooth);
 }
 
-.services__card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary-border);
-}
-
-.services__card:hover::before {
+.accordion__item.active .accordion__content {
+  max-height: 1000px; /* Large enough to fit content */
   opacity: 1;
 }
 
-.services__card-number {
-  font-size: var(--fs-h2);
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.2;
-  line-height: 1;
-  margin-bottom: var(--space-5);
+.accordion__inner {
+  padding-bottom: 40px;
+  padding-left: 60px; /* Align with title start */
 }
 
-.services__card:hover .services__card-number {
-  opacity: 0.4;
+.accordion__grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
 }
 
-.services__card h3 {
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  margin-bottom: var(--space-3);
+.accordion__text {
+  font-size: 18px;
+  color: #888888;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
-.services__card h3 {
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  margin-bottom: var(--space-3);
+.accordion__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.services__card p {
-  color: var(--color-text-muted);
-  font-size: var(--fs-body-sm);
-  line-height: var(--lh-relaxed);
+.badge--tech {
+  font-size: 12px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: #AAAAAA;
 }
+
+.accordion__benefits h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #555555;
+  margin-bottom: 16px;
+}
+
+.accordion__benefits ul {
+  margin-bottom: 24px;
+}
+
+.accordion__benefits li {
+  color: #888888;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.accordion__benefits li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.btn--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFFFFF;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+
+.btn--link:hover {
+  opacity: 0.7;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .accordion__grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .accordion__inner {
+    padding-left: 0;
+  }
+  
+  .accordion__number {
+    margin-right: 20px;
+  }
+}
+
 
 /* ============================
    11.a. 24/7 AI DASHBOARD
