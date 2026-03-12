@@ -29,7 +29,9 @@
     });
   };
 
-  document.addEventListener('DOMContentLoaded', () => initInViewAnimations());
+  document.addEventListener('DOMContentLoaded', () => {
+    initInViewAnimations();
+  });
 })();
 
 
