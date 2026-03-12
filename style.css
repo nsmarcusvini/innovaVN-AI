@@ -731,10 +731,6 @@ h4 {
   width: max-content;
 }
 
-.logos__track:hover {
-  animation-play-state: paused;
-}
-
 .logos__item {
   flex-shrink: 0;
   display: flex;
@@ -1751,16 +1747,26 @@ h4 {
 .testimonials__carousel {
   display: flex;
   gap: var(--space-6);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: var(--space-8) var(--container-px);
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-  scroll-behavior: smooth;
+  padding: var(--space-8) 0;
+  overflow: hidden; /* Hide scrollbar and snap */
 }
 
-.testimonials__carousel::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+.testimonials__track {
+  display: flex;
+  gap: var(--space-6);
+  width: max-content;
+  animation: scrollTestimonials 40s linear infinite;
+  padding-left: var(--container-px);
+}
+
+@keyframes scrollTestimonials {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Moves half the container (the original set of cards) */
+    transform: translateX(-50%);
+  }
 }
 
 .testimonial__card {
