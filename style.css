@@ -2016,3 +2016,171 @@ h4 {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ============================
+   HERO ANNOUNCE BAR
+   ============================ */
+.hero__announce {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px 6px 6px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--color-primary-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  color: var(--color-text);
+  text-decoration: none;
+  margin-bottom: var(--space-5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-smooth);
+}
+
+.hero__announce:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm), 0 0 0 3px var(--color-primary-bg);
+}
+
+.hero__announce-new {
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.hero__announce-text {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.hero__announce svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.hero__announce:hover svg {
+  transform: translateX(3px);
+}
+
+
+/* ============================
+   SERVICES PROMO CARD
+   ============================ */
+.services__promo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-primary-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-10);
+  margin-top: var(--space-8);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.services__promo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+}
+
+.services__promo-content {
+  flex: 1;
+}
+
+.services__promo-title {
+  font-size: var(--fs-h3);
+  color: var(--color-secondary);
+  margin: var(--space-3) 0 var(--space-2);
+  line-height: var(--lh-snug);
+}
+
+.services__promo-desc {
+  font-size: var(--fs-body-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+  max-width: 480px;
+}
+
+.services__promo-metrics {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.services__promo-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.services__promo-metric strong {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+}
+
+.services__promo-metric span {
+  font-size: var(--fs-label);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.services__promo-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.services__promo-guarantee {
+  font-size: var(--fs-label);
+  color: var(--color-text-subtle);
+}
+
+@media (max-width: 768px) {
+  .services__promo {
+    flex-direction: column;
+    padding: var(--space-6);
+    text-align: center;
+  }
+
+  .services__promo-metrics {
+    justify-content: center;
+  }
+
+  .services__promo-cta {
+    width: 100%;
+  }
+
+  .services__promo-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__announce {
+    font-size: 11px;
+  }
+}
