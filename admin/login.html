@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — InnovaVN AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+  </style>
+</head>
+<body class="admin-login-page">
+
+  <!-- Background decorative blobs -->
+  <div class="login-bg" aria-hidden="true">
+    <div class="login-blob login-blob-1"></div>
+    <div class="login-blob login-blob-2"></div>
+  </div>
+
+  <main class="login-wrapper">
+    <div class="login-card">
+
+      <!-- Brand -->
+      <div class="login-brand">
+        <div class="login-brand-icon">I</div>
+        <div>
+          <div class="login-brand-name">InnovaVN AI</div>
+          <div class="login-brand-sub">Admin Panel</div>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="login-heading">Bem-vindo de volta</h1>
+      <p class="login-sub">Faça login para acessar o painel administrativo.</p>
+
+      <!-- Error message -->
+      <div class="login-error" id="loginError" role="alert">
+        <svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="loginErrorText">Credenciais inválidas. Tente novamente.</span>
+      </div>
+
+      <!-- Form -->
+      <form class="login-form" id="loginForm" novalidate>
+
+        <div class="login-field">
+          <label class="login-label" for="emailInput">E-mail</label>
+          <div class="login-input-wrap">
+            <svg class="login-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input
+              class="login-input"
+              id="emailInput"
+              type="email"
+              placeholder="admin@innovavn.ai"
+              autocomplete="email"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="login-field">
+          <label class="login-label" for="passwordInput">Senha</label>
+          <div class="login-input-wrap">
+            <svg class="login-input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input
+              class="login-input"
+              id="passwordInput"
+              type="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+        </div>
+
+        <button class="login-submit" type="submit" id="loginBtn">
+          Entrar no Painel
+        </button>
+
+      </form>
+
+      <!-- Dev hint -->
+      <p class="login-hint">
+        Acesso de demonstração: <code>admin@innovavn.ai</code> / <code>Admin@2024</code>
+      </p>
+
+    </div>
+  </main>
+
+  <script>
+    // ── Auth check: if already logged in, redirect ──
+    (function() {
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token));
+          if (payload.role === 'admin' && payload.exp > Date.now()) {
+            window.location.replace('dashboard.html');
+          }
+        } catch(e) {
+          localStorage.removeItem('adminToken');
+        }
+      }
+    })();
+
+    // ── Mock users ──
+    const MOCK_USERS = [
+      { id: 1, email: 'admin@innovavn.ai', password: 'Admin@2024', role: 'admin', name: 'Admin InnovaVN' }
+    ];
+
+    // ── Login form ──
+    const form        = document.getElementById('loginForm');
+    const emailInput  = document.getElementById('emailInput');
+    const passInput   = document.getElementById('passwordInput');
+    const loginBtn    = document.getElementById('loginBtn');
+    const errorBox    = document.getElementById('loginError');
+    const errorText   = document.getElementById('loginErrorText');
+
+    function showError(msg) {
+      errorText.textContent = msg;
+      errorBox.classList.add('visible');
+      emailInput.classList.add('error');
+      passInput.classList.add('error');
+    }
+
+    function clearError() {
+      errorBox.classList.remove('visible');
+      emailInput.classList.remove('error');
+      passInput.classList.remove('error');
+    }
+
+    [emailInput, passInput].forEach(el => el.addEventListener('input', clearError));
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearError();
+
+      const email    = emailInput.value.trim().toLowerCase();
+      const password = passInput.value;
+
+      if (!email || !password) {
+        showError('Preencha todos os campos.');
+        return;
+      }
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Verificando...';
+
+      // Simulate async
+      setTimeout(() => {
+        const user = MOCK_USERS.find(u => u.email === email && u.password === password);
+
+        if (!user) {
+          showError('E-mail ou senha incorretos. Verifique suas credenciais.');
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Entrar no Painel';
+          passInput.value = '';
+          passInput.focus();
+          return;
+        }
+
+        if (user.role !== 'admin') {
+          showError('Você não tem permissão de acesso ao painel administrativo.');
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Entrar no Painel';
+          return;
+        }
+
+        // Generate mock token (8 hour expiry)
+        const payload = {
+          userId: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          exp: Date.now() + 8 * 60 * 60 * 1000,
+          iat: Date.now()
+        };
+
+        localStorage.setItem('adminToken', btoa(JSON.stringify(payload)));
+        loginBtn.textContent = 'Redirecionando...';
+        window.location.replace('dashboard.html');
+      }, 700);
+    });
+  </script>
+
+</body>
+</html>
