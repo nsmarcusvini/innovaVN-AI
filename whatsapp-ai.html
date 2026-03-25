@@ -382,72 +382,6 @@
           </p>
         </div>
 
-        <!-- Plan 3: Premium -->
-        <div class="wai-pricing-card wai-pricing-card--premium">
-          <div class="wai-pricing-card__header">
-            <p class="wai-pricing-card__plan-name">Premium</p>
-            <p class="wai-pricing-card__plan-desc">Para negocios que querem escalar</p>
-            <div class="wai-pricing-card__price">
-              <span class="wai-pricing-card__currency">R$</span>
-              <span class="wai-pricing-card__amount">297</span>
-              <span class="wai-pricing-card__period">/ unico</span>
-            </div>
-          </div>
-
-          <ul class="wai-pricing-card__features">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Ate 3 numeros de WhatsApp
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              IA altamente personalizada
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Integracoes avancadas
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Dashboard completo
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Suporte prioritario + onboarding
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Relatorios e analises avancadas
-            </li>
-          </ul>
-
-          <a href="#configurar" class="btn btn--outline wai-pricing-card__cta wai-pricing-card__cta--dark">
-            Escalar meu atendimento
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-
       </div>
     </div>
   </section>
@@ -458,7 +392,7 @@
     <div class="container">
       <div class="section-header animate-on-scroll">
         <span class="badge">Configuracao</span>
-        <h2 class="section-header__title">Configure sua IA em <span class="text-gradient">5 passos</span></h2>
+        <h2 class="section-header__title">Configure sua IA em <span class="text-gradient">6 passos</span></h2>
         <p class="section-header__subtitle">Simples, rapido e sem necessidade de conhecimento tecnico.</p>
       </div>
 
@@ -472,27 +406,34 @@
             <span class="wai-wizard__step-dot" data-step="3">3</span>
             <span class="wai-wizard__step-dot" data-step="4">4</span>
             <span class="wai-wizard__step-dot" data-step="5">5</span>
+            <span class="wai-wizard__step-dot" data-step="6">6</span>
           </div>
         </div>
 
-        <!-- Step 1: WhatsApp Number -->
+        <!-- Step 1: AI Name + WhatsApp Number -->
         <div class="wai-wizard__step active" data-step="1">
           <div class="wai-wizard__step-header">
             <span class="wai-wizard__step-number">01</span>
-            <h3 class="wai-wizard__step-title">Seu numero do WhatsApp</h3>
-            <p class="wai-wizard__step-desc">Informe o numero que recebera a IA. Usaremos a API oficial do WhatsApp
-              Business.</p>
+            <h3 class="wai-wizard__step-title">De um nome a sua IA</h3>
+            <p class="wai-wizard__step-desc">Esse sera o nome que sua IA usara ao se apresentar aos clientes.</p>
           </div>
           <div class="wai-wizard__step-content">
             <div class="wai-form-group">
-              <label class="wai-form-label" for="whatsapp-number">Numero com DDD</label>
+              <label class="wai-form-label" for="ai-name">Nome da IA</label>
+              <input type="text" id="ai-name" class="wai-input" placeholder="Ex: Leo, Ana, Atendimento Loja X"
+                maxlength="40">
+              <span class="wai-form-hint">Escolha um nome curto e memoravel</span>
+            </div>
+            <div class="wai-form-group">
+              <label class="wai-form-label" for="whatsapp-number">Numero do WhatsApp com DDD</label>
               <div class="wai-input-wrapper">
                 <span class="wai-input-prefix">+55</span>
                 <input type="tel" id="whatsapp-number" class="wai-input" placeholder="(11) 99999-9999"
                   maxlength="15">
               </div>
-              <span class="wai-form-hint">Exemplo: (11) 97011-4045</span>
+              <span class="wai-form-hint">Numero que recebera a IA</span>
             </div>
+            <div class="wai-wizard-error" id="wizard-error-1" style="display:none"></div>
           </div>
           <div class="wai-wizard__actions">
             <div></div>
@@ -507,29 +448,131 @@
           </div>
         </div>
 
-        <!-- Step 2: Business Type -->
+        <!-- Step 2: AI Personality (Tone + Style + Behavior) -->
         <div class="wai-wizard__step" data-step="2">
           <div class="wai-wizard__step-header">
             <span class="wai-wizard__step-number">02</span>
-            <h3 class="wai-wizard__step-title">Tipo do seu negocio</h3>
-            <p class="wai-wizard__step-desc">Isso ajuda a IA a entender seu mercado e usar a linguagem certa.</p>
+            <h3 class="wai-wizard__step-title">Personalidade da IA</h3>
+            <p class="wai-wizard__step-desc">Defina como sua IA se comunica. Escolha o tom, estilo e comportamento.</p>
           </div>
           <div class="wai-wizard__step-content">
+            <!-- Tone -->
             <div class="wai-form-group">
-              <label class="wai-form-label" for="business-type">Selecione o segmento</label>
-              <select id="business-type" class="wai-select">
-                <option value="" disabled selected>Escolha uma opcao</option>
-                <option value="ecommerce">E-commerce / Loja Online</option>
-                <option value="servicos">Prestacao de Servicos</option>
-                <option value="saude">Saude e Bem-estar</option>
-                <option value="educacao">Educacao e Cursos</option>
-                <option value="alimentacao">Alimentacao e Delivery</option>
-                <option value="imobiliaria">Imobiliaria</option>
-                <option value="beleza">Beleza e Estetica</option>
-                <option value="tech">Tecnologia / SaaS</option>
-                <option value="outro">Outro</option>
-              </select>
+              <label class="wai-personality-section-label">Tom de voz</label>
+              <div class="wai-personality-grid">
+                <label class="wai-personality-option">
+                  <input type="radio" name="tone" value="profissional" checked>
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">👔</div>
+                    <strong>Profissional</strong>
+                    <span>Formal e serio</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="tone" value="amigavel">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">😊</div>
+                    <strong>Amigavel</strong>
+                    <span>Proximo e acolhedor</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="tone" value="casual">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">✌️</div>
+                    <strong>Casual</strong>
+                    <span>Leve e descontraido</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="tone" value="persuasivo">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">🎯</div>
+                    <strong>Persuasivo</strong>
+                    <span>Envolvente e convincente</span>
+                  </div>
+                </label>
+              </div>
             </div>
+
+            <!-- Style -->
+            <div class="wai-form-group">
+              <label class="wai-personality-section-label">Estilo de resposta</label>
+              <div class="wai-personality-grid">
+                <label class="wai-personality-option">
+                  <input type="radio" name="style" value="direto" checked>
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">⚡</div>
+                    <strong>Direto</strong>
+                    <span>Curto e objetivo</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="style" value="detalhado">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">📋</div>
+                    <strong>Detalhado</strong>
+                    <span>Completo e explicativo</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="style" value="consultivo">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">🧠</div>
+                    <strong>Consultivo</strong>
+                    <span>Faz perguntas antes de responder</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="style" value="agressivo">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">🚀</div>
+                    <strong>Vendedor</strong>
+                    <span>Focado em fechar vendas</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Behavior -->
+            <div class="wai-form-group">
+              <label class="wai-personality-section-label">Comportamento</label>
+              <div class="wai-personality-grid">
+                <label class="wai-personality-option">
+                  <input type="radio" name="behavior" value="objetivo" checked>
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">🎯</div>
+                    <strong>Objetivo</strong>
+                    <span>Vai direto ao ponto</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="behavior" value="conversacional">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">💬</div>
+                    <strong>Conversacional</strong>
+                    <span>Bate-papo natural</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="behavior" value="vendas">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">💰</div>
+                    <strong>Vendas</strong>
+                    <span>Direciona para compra</span>
+                  </div>
+                </label>
+                <label class="wai-personality-option">
+                  <input type="radio" name="behavior" value="suporte">
+                  <div class="wai-personality-card">
+                    <div class="wai-personality-emoji">🛟</div>
+                    <strong>Suporte</strong>
+                    <span>Foco em resolver problemas</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="wai-wizard-error" id="wizard-error-2" style="display:none"></div>
           </div>
           <div class="wai-wizard__actions">
             <button class="btn btn--ghost wai-wizard__prev" data-prev="1">
@@ -551,48 +594,63 @@
           </div>
         </div>
 
-        <!-- Step 3: AI Personality -->
+        <!-- Step 3: Business Context -->
         <div class="wai-wizard__step" data-step="3">
           <div class="wai-wizard__step-header">
             <span class="wai-wizard__step-number">03</span>
-            <h3 class="wai-wizard__step-title">Personalidade da IA</h3>
-            <p class="wai-wizard__step-desc">Escolha o tom de voz que combina com sua marca.</p>
+            <h3 class="wai-wizard__step-title">Contexto do negocio</h3>
+            <p class="wai-wizard__step-desc">Conte sobre sua empresa para a IA entender seu mercado.</p>
           </div>
           <div class="wai-wizard__step-content">
-            <div class="wai-personality-grid">
-              <label class="wai-personality-option">
-                <input type="radio" name="personality" value="profissional">
-                <div class="wai-personality-card">
-                  <div class="wai-personality-emoji">👔</div>
-                  <strong>Profissional</strong>
-                  <span>Formal, objetivo e direto ao ponto</span>
-                </div>
-              </label>
-              <label class="wai-personality-option">
-                <input type="radio" name="personality" value="amigavel">
-                <div class="wai-personality-card">
-                  <div class="wai-personality-emoji">😊</div>
-                  <strong>Amigavel</strong>
-                  <span>Descontraido, proximo e acolhedor</span>
-                </div>
-              </label>
-              <label class="wai-personality-option">
-                <input type="radio" name="personality" value="consultivo">
-                <div class="wai-personality-card">
-                  <div class="wai-personality-emoji">🧠</div>
-                  <strong>Consultivo</strong>
-                  <span>Especialista, educativo e detalhado</span>
-                </div>
-              </label>
-              <label class="wai-personality-option">
-                <input type="radio" name="personality" value="vendedor">
-                <div class="wai-personality-card">
-                  <div class="wai-personality-emoji">🚀</div>
-                  <strong>Vendedor</strong>
-                  <span>Persuasivo, dinamico e focado em conversao</span>
-                </div>
-              </label>
+            <div class="wai-form-group">
+              <label class="wai-form-label" for="business-what">O que sua empresa faz?</label>
+              <textarea id="business-what" class="wai-textarea" rows="2"
+                placeholder="Ex: Vendemos roupas femininas plus size online com entrega para todo Brasil"></textarea>
             </div>
+            <div class="wai-form-group">
+              <label class="wai-form-label" for="business-products">O que voces vendem ou oferecem?</label>
+              <textarea id="business-products" class="wai-textarea" rows="2"
+                placeholder="Ex: Vestidos, blusas, calcas, acessorios e sapatos"></textarea>
+            </div>
+            <div class="wai-form-group">
+              <label class="wai-form-label" for="business-audience">Quem e seu publico-alvo?</label>
+              <textarea id="business-audience" class="wai-textarea" rows="2"
+                placeholder="Ex: Mulheres de 25-45 anos, classes B e C, que compram pelo WhatsApp"></textarea>
+            </div>
+
+            <!-- Optional FAQ -->
+            <details class="wai-faq-toggle">
+              <summary class="wai-faq-toggle__label">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Adicionar perguntas frequentes (opcional)
+              </summary>
+              <div class="wai-responses-list">
+                <div class="wai-response-item">
+                  <div class="wai-response-question">
+                    <span class="wai-response-label">Pergunta do cliente</span>
+                    <input type="text" class="wai-input" placeholder="Ex: Qual o horario de funcionamento?">
+                  </div>
+                  <div class="wai-response-answer">
+                    <span class="wai-response-label">Resposta da IA</span>
+                    <textarea class="wai-textarea"
+                      placeholder="Ex: Funcionamos de segunda a sexta, das 9h as 18h."></textarea>
+                  </div>
+                </div>
+                <button class="btn btn--ghost wai-add-response">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  Adicionar mais uma pergunta
+                </button>
+              </div>
+            </details>
+            <div class="wai-wizard-error" id="wizard-error-3" style="display:none"></div>
           </div>
           <div class="wai-wizard__actions">
             <button class="btn btn--ghost wai-wizard__prev" data-prev="2">
@@ -614,48 +672,49 @@
           </div>
         </div>
 
-        <!-- Step 4: Auto Responses -->
+        <!-- Step 4: Goal -->
         <div class="wai-wizard__step" data-step="4">
           <div class="wai-wizard__step-header">
             <span class="wai-wizard__step-number">04</span>
-            <h3 class="wai-wizard__step-title">Respostas automaticas</h3>
-            <p class="wai-wizard__step-desc">Configure exemplos de perguntas e respostas que sua IA deve usar.</p>
+            <h3 class="wai-wizard__step-title">Objetivo principal</h3>
+            <p class="wai-wizard__step-desc">O que voce quer que sua IA faca de principal?</p>
           </div>
           <div class="wai-wizard__step-content">
-            <div class="wai-responses-list">
-              <div class="wai-response-item">
-                <div class="wai-response-question">
-                  <span class="wai-response-label">Pergunta do cliente</span>
-                  <input type="text" class="wai-input" placeholder="Ex: Qual o horario de funcionamento?"
-                    value="Qual o horario de funcionamento?">
+            <div class="wai-personality-grid">
+              <label class="wai-personality-option">
+                <input type="radio" name="goal" value="vender" checked>
+                <div class="wai-personality-card">
+                  <div class="wai-personality-emoji">🛒</div>
+                  <strong>Vender</strong>
+                  <span>Produtos e servicos</span>
                 </div>
-                <div class="wai-response-answer">
-                  <span class="wai-response-label">Resposta da IA</span>
-                  <textarea class="wai-textarea"
-                    placeholder="Ex: Funcionamos de segunda a sexta, das 9h as 18h.">Funcionamos de segunda a sexta, das 9h as 18h. Aos sabados das 9h as 13h. 😊</textarea>
+              </label>
+              <label class="wai-personality-option">
+                <input type="radio" name="goal" value="suporte">
+                <div class="wai-personality-card">
+                  <div class="wai-personality-emoji">🎧</div>
+                  <strong>Suporte</strong>
+                  <span>Atendimento ao cliente</span>
                 </div>
-              </div>
-              <div class="wai-response-item">
-                <div class="wai-response-question">
-                  <span class="wai-response-label">Pergunta do cliente</span>
-                  <input type="text" class="wai-input" placeholder="Ex: Quais formas de pagamento?"
-                    value="Quais formas de pagamento?">
+              </label>
+              <label class="wai-personality-option">
+                <input type="radio" name="goal" value="leads">
+                <div class="wai-personality-card">
+                  <div class="wai-personality-emoji">🧲</div>
+                  <strong>Captar Leads</strong>
+                  <span>Coletar contatos</span>
                 </div>
-                <div class="wai-response-answer">
-                  <span class="wai-response-label">Resposta da IA</span>
-                  <textarea class="wai-textarea"
-                    placeholder="Ex: Aceitamos PIX, cartao e boleto.">Aceitamos PIX, cartao de credito (ate 12x), debito e boleto bancario. Qual prefere?</textarea>
+              </label>
+              <label class="wai-personality-option">
+                <input type="radio" name="goal" value="agendamento">
+                <div class="wai-personality-card">
+                  <div class="wai-personality-emoji">📅</div>
+                  <strong>Agendamentos</strong>
+                  <span>Marcar horarios</span>
                 </div>
-              </div>
-              <button class="btn btn--ghost wai-add-response">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                Adicionar mais uma resposta
-              </button>
+              </label>
             </div>
+            <div class="wai-wizard-error" id="wizard-error-4" style="display:none"></div>
           </div>
           <div class="wai-wizard__actions">
             <button class="btn btn--ghost wai-wizard__prev" data-prev="3">
@@ -667,7 +726,7 @@
               Voltar
             </button>
             <button class="btn btn--primary wai-wizard__next" data-next="5">
-              Finalizar configuracao
+              Ver preview
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
@@ -677,40 +736,190 @@
           </div>
         </div>
 
-        <!-- Step 5: Success -->
+        <!-- Step 5: Preview -->
         <div class="wai-wizard__step" data-step="5">
-          <div class="wai-wizard__step-success">
-            <div class="wai-success-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+          <div class="wai-wizard__step-header">
+            <span class="wai-wizard__step-number">05</span>
+            <h3 class="wai-wizard__step-title">Preview da sua IA</h3>
+            <p class="wai-wizard__step-desc">Veja como sua IA vai se comportar com os clientes.</p>
+          </div>
+          <div class="wai-wizard__step-content">
+            <div class="wai-preview-chat">
+              <div class="wai-preview-chat__header">
+                <div class="wai-preview-chat__avatar">🤖</div>
+                <div class="wai-preview-chat__info">
+                  <strong id="preview-ai-name">Sua IA</strong>
+                  <span class="wai-preview-chat__status">online</span>
+                </div>
+              </div>
+              <div class="wai-preview-chat__body">
+                <div class="wai-preview-bubble wai-preview-bubble--customer">
+                  <span>Oi, tudo bem?</span>
+                  <time>10:30</time>
+                </div>
+                <div class="wai-preview-bubble wai-preview-bubble--ai">
+                  <span id="preview-ai-message">Carregando preview...</span>
+                  <time>10:30</time>
+                </div>
+              </div>
+              <p class="wai-preview-note">Esta e uma simulacao. A IA real tera respostas mais inteligentes e contextuais.</p>
+            </div>
+            <div class="wai-wizard-error" id="wizard-error-5" style="display:none"></div>
+          </div>
+          <div class="wai-wizard__actions">
+            <button class="btn btn--ghost wai-wizard__prev" data-prev="4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
+                <path d="M19 12H5" />
+                <path d="m12 19-7-7 7-7" />
               </svg>
-            </div>
-            <h3 class="wai-success-title">Sua IA esta pronta! 🚀</h3>
-            <p class="wai-success-desc">A inteligencia artificial foi configurada com sucesso no seu WhatsApp. Ela ja
-              esta ativa e pronta para atender seus clientes.</p>
-            <div class="wai-success-details">
-              <div class="wai-success-detail">
-                <span class="wai-success-detail-label">Numero</span>
-                <span class="wai-success-detail-value" id="success-phone">+55 (11) 99999-9999</span>
-              </div>
-              <div class="wai-success-detail">
-                <span class="wai-success-detail-label">Status</span>
-                <span class="wai-success-detail-value wai-status-active">
-                  <span class="wai-status-dot"></span>
-                  Ativa e operando
-                </span>
-              </div>
-            </div>
-            <a href="#dashboard" class="btn btn--primary btn--lg">
-              Ver Dashboard
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              Voltar
+            </button>
+            <button class="btn btn--primary wai-wizard__next" data-next="6">
+              Ativar minha IA
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
-            </a>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 6: Activate + Success -->
+        <div class="wai-wizard__step" data-step="6">
+          <!-- Activate View (shown first) -->
+          <div id="wizard-activate-view">
+            <div class="wai-wizard__step-header">
+              <span class="wai-wizard__step-number">06</span>
+              <h3 class="wai-wizard__step-title">Ativar sua IA</h3>
+              <p class="wai-wizard__step-desc">Confira o resumo e ative sua inteligencia artificial.</p>
+            </div>
+            <div class="wai-wizard__step-content">
+              <div class="wai-activate-summary">
+                <div class="wai-activate-summary__item">
+                  <span class="wai-activate-summary__label">Nome da IA</span>
+                  <span class="wai-activate-summary__value" id="summary-ai-name">-</span>
+                </div>
+                <div class="wai-activate-summary__item">
+                  <span class="wai-activate-summary__label">WhatsApp</span>
+                  <span class="wai-activate-summary__value" id="summary-phone">-</span>
+                </div>
+                <div class="wai-activate-summary__item">
+                  <span class="wai-activate-summary__label">Tom</span>
+                  <span class="wai-activate-summary__value" id="summary-tone">-</span>
+                </div>
+                <div class="wai-activate-summary__item">
+                  <span class="wai-activate-summary__label">Estilo</span>
+                  <span class="wai-activate-summary__value" id="summary-style">-</span>
+                </div>
+                <div class="wai-activate-summary__item">
+                  <span class="wai-activate-summary__label">Objetivo</span>
+                  <span class="wai-activate-summary__value" id="summary-goal">-</span>
+                </div>
+              </div>
+              <div class="wai-wizard-error" id="wizard-error-6" style="display:none"></div>
+            </div>
+            <div class="wai-wizard__actions">
+              <button class="btn btn--ghost wai-wizard__prev" data-prev="5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 12H5" />
+                  <path d="m12 19-7-7 7-7" />
+                </svg>
+                Voltar
+              </button>
+              <button class="btn btn--primary btn--lg" id="btn-activate-ai">
+                <span class="wai-btn-text">Ativar agora</span>
+                <span class="wai-btn-loader" style="display:none"><span class="wai-spinner"></span></span>
+                <svg class="wai-btn-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- QR Code View (shown after API returns QR) -->
+          <div id="wizard-qrcode-view" style="display:none">
+            <div class="wai-qrcode-container">
+              <div class="wai-qrcode-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                </svg>
+                <h3>Conecte seu WhatsApp</h3>
+              </div>
+              <p class="wai-qrcode-instructions">Abra o WhatsApp no celular &rarr; <strong>Dispositivos conectados</strong> &rarr; <strong>Conectar dispositivo</strong> &rarr; Escaneie o codigo abaixo:</p>
+              <div class="wai-qrcode-image-wrap">
+                <img id="qrcode-image" src="" alt="QR Code WhatsApp" />
+                <div id="qrcode-loading" class="wai-qrcode-loading">
+                  <span class="wai-spinner"></span>
+                  <span>Gerando QR Code...</span>
+                </div>
+              </div>
+              <div class="wai-qrcode-status" id="qrcode-status">
+                <span class="wai-spinner wai-spinner--sm"></span>
+                <span>Aguardando conexao...</span>
+              </div>
+              <button class="btn btn--ghost" id="btn-new-qrcode" style="display:none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 2v6h-6" />
+                  <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+                  <path d="M3 22v-6h6" />
+                  <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+                </svg>
+                Gerar novo QR Code
+              </button>
+              <div class="wai-wizard-error" id="wizard-error-qr" style="display:none"></div>
+            </div>
+          </div>
+
+          <!-- Success View (shown after activation) -->
+          <div id="wizard-success-view" style="display:none">
+            <div class="wai-wizard__step-success">
+              <div class="wai-success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <h3 class="wai-success-title">Sua IA esta pronta! 🚀</h3>
+              <p class="wai-success-desc">A inteligencia artificial foi configurada com sucesso no seu WhatsApp. Ela ja
+                esta ativa e pronta para atender seus clientes.</p>
+              <div class="wai-success-details">
+                <div class="wai-success-detail">
+                  <span class="wai-success-detail-label">Nome</span>
+                  <span class="wai-success-detail-value" id="success-ai-name">-</span>
+                </div>
+                <div class="wai-success-detail">
+                  <span class="wai-success-detail-label">Numero</span>
+                  <span class="wai-success-detail-value" id="success-phone">+55 (11) 99999-9999</span>
+                </div>
+                <div class="wai-success-detail">
+                  <span class="wai-success-detail-label">Status</span>
+                  <span class="wai-success-detail-value wai-status-active">
+                    <span class="wai-status-dot"></span>
+                    Ativa e operando
+                  </span>
+                </div>
+              </div>
+              <a href="#dashboard" class="btn btn--primary btn--lg">
+                Ver Dashboard
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>

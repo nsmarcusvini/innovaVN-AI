@@ -1,0 +1,243 @@
+{
+  "name": "Setup User - Onboarding",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "setup-user",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -200,
+        300
+      ],
+      "id": "a1b2c3d4-0001-4000-a000-000000000001",
+      "name": "Recebe Onboarding",
+      "webhookId": "setup-user-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate required fields\nconst body = $input.first().json.body || $input.first().json;\n\nconst required = ['aiName', 'whatsappNumber', 'tone', 'style', 'goal'];\nconst missing = required.filter(f => !body[f] || String(body[f]).trim() === '');\n\nif (missing.length > 0) {\n  return [{\n    json: {\n      valid: false,\n      success: false,\n      error: `Campos obrigatórios faltando: ${missing.join(', ')}`\n    }\n  }];\n}\n\n// Pass validated data forward\nreturn [{\n  json: {\n    valid: true,\n    aiName: String(body.aiName).trim(),\n    whatsappNumber: String(body.whatsappNumber).replace(/\\D/g, ''),\n    tone: String(body.tone).trim(),\n    style: String(body.style).trim(),\n    behavior: String(body.behavior || 'objetivo').trim(),\n    businessContext: String(body.businessContext || '').trim(),\n    goal: String(body.goal).trim(),\n    faq: Array.isArray(body.faq) ? body.faq : [],\n    plan: String(body.plan || 'Starter').trim()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        60,
+        300
+      ],
+      "id": "a1b2c3d4-0002-4000-a000-000000000002",
+      "name": "Valida Dados"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "valid-check",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        300,
+        300
+      ],
+      "id": "a1b2c3d4-0003-4000-a000-000000000003",
+      "name": "Dados Válidos?"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Store user config in workflow static data\nconst data = $input.first().json;\nconst phone = data.whatsappNumber;\nconst userId = 'usr_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);\n\n// Get persistent storage\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.users) {\n  staticData.users = {};\n}\n\n// Check if user already exists (update vs create)\nconst isUpdate = !!staticData.users[phone];\nconst existingUserId = isUpdate ? staticData.users[phone].userId : userId;\n\n// Store/update user configuration\nstaticData.users[phone] = {\n  userId: existingUserId,\n  aiName: data.aiName,\n  tone: data.tone,\n  style: data.style,\n  behavior: data.behavior,\n  businessContext: data.businessContext,\n  goal: data.goal,\n  faq: data.faq,\n  plan: data.plan,\n  whatsappNumber: phone,\n  createdAt: isUpdate ? staticData.users[phone].createdAt : new Date().toISOString(),\n  updatedAt: new Date().toISOString(),\n  active: true\n};\n\nreturn [{\n  json: {\n    success: true,\n    userId: existingUserId,\n    phone: phone,\n    isUpdate: isUpdate,\n    message: isUpdate ? 'Configuração atualizada com sucesso' : 'IA configurada com sucesso'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        540,
+        200
+      ],
+      "id": "a1b2c3d4-0004-4000-a000-000000000004",
+      "name": "Salva Configuração"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        200
+      ],
+      "id": "a1b2c3d4-0005-4000-a000-000000000005",
+      "name": "Responde Sucesso"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 400,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        420
+      ],
+      "id": "a1b2c3d4-0006-4000-a000-000000000006",
+      "name": "Responde Erro"
+    },
+    {
+      "parameters": {
+        "content": "## Setup User - Onboarding Webhook\n\nRecebe dados do wizard do frontend e salva a configuração do usuário.\n\nEndpoint: POST /webhook/setup-user\n\nPayload esperado:\n- aiName (obrigatório)\n- whatsappNumber (obrigatório)\n- tone (obrigatório)\n- style (obrigatório)\n- goal (obrigatório)\n- behavior (opcional, default: objetivo)\n- businessContext (opcional)\n- faq (opcional, array)\n- plan (opcional, default: Starter)",
+        "height": 380,
+        "width": 340
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -540,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "a1b2c3d4-0007-4000-a000-000000000007",
+      "name": "Sticky Note - Docs"
+    },
+    {
+      "parameters": {
+        "content": "## Storage\n\nUsa n8n Workflow Static Data.\nDados persistem entre execuções.\n\nEstrutura:\nstaticData.users = {\n  '5511970114045': {\n    userId, aiName, tone,\n    style, behavior, goal,\n    businessContext, faq,\n    plan, active, ...\n  }\n}\n\nChave = telefone normalizado (só dígitos)",
+        "height": 340,
+        "width": 280
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        540,
+        -180
+      ],
+      "typeVersion": 1,
+      "id": "a1b2c3d4-0008-4000-a000-000000000008",
+      "name": "Sticky Note - Storage"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Recebe Onboarding": {
+      "main": [
+        [
+          {
+            "node": "Valida Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valida Dados": {
+      "main": [
+        [
+          {
+            "node": "Dados Válidos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dados Válidos?": {
+      "main": [
+        [
+          {
+            "node": "Salva Configuração",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responde Erro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salva Configuração": {
+      "main": [
+        [
+          {
+            "node": "Responde Sucesso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [
+    {
+      "name": "onboarding"
+    }
+  ]
+}

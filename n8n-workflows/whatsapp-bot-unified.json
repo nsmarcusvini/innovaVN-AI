@@ -1,0 +1,524 @@
+{
+  "name": "Whatsapp Bot - Unified",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "setup-user",
+        "responseMode": "lastNode",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Access-Control-Allow-Headers", "value": "Content-Type" }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-688, 300],
+      "id": "a1b2c3d4-0001-4000-a000-000000000001",
+      "name": "Recebe Onboarding",
+      "webhookId": "setup-user-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\n\nconst required = ['aiName', 'whatsappNumber', 'tone', 'style', 'goal'];\nconst missing = required.filter(f => !body[f] || String(body[f]).trim() === '');\n\nif (missing.length > 0) {\n  return [{ json: { valid: false, success: false, error: 'Campos obrigatorios faltando: ' + missing.join(', ') } }];\n}\n\nreturn [{\n  json: {\n    valid: true,\n    aiName: String(body.aiName).trim(),\n    whatsappNumber: String(body.whatsappNumber).replace(/\\D/g, ''),\n    tone: String(body.tone).trim(),\n    style: String(body.style).trim(),\n    behavior: String(body.behavior || 'objetivo').trim(),\n    businessContext: String(body.businessContext || '').trim(),\n    goal: String(body.goal).trim(),\n    faq: Array.isArray(body.faq) ? body.faq : [],\n    plan: String(body.plan || 'Basico').trim()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-400, 300],
+      "id": "a1b2c3d4-0002-4000-a000-000000000002",
+      "name": "Valida Dados"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose", "version": 2 },
+          "conditions": [
+            {
+              "id": "valid-check",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [-140, 300],
+      "id": "a1b2c3d4-0003-4000-a000-000000000003",
+      "name": "Dados Validos"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst phone = data.whatsappNumber;\nconst instanceName = 'ia_' + phone;\nconst userId = 'usr_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);\n\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.users) staticData.users = {};\n\nconst isUpdate = !!staticData.users[phone];\nconst existingUserId = isUpdate ? staticData.users[phone].userId : userId;\n\nstaticData.users[phone] = {\n  userId: existingUserId,\n  aiName: data.aiName,\n  tone: data.tone,\n  style: data.style,\n  behavior: data.behavior,\n  businessContext: data.businessContext,\n  goal: data.goal,\n  faq: data.faq,\n  plan: data.plan,\n  whatsappNumber: phone,\n  createdAt: isUpdate ? staticData.users[phone].createdAt : new Date().toISOString(),\n  updatedAt: new Date().toISOString(),\n  active: true\n};\n\nreturn [{\n  json: {\n    success: true,\n    userId: existingUserId,\n    phone: phone,\n    instanceName: instanceName,\n    isUpdate: isUpdate,\n    message: isUpdate ? 'Config atualizada' : 'IA configurada'\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [120, 200],
+      "id": "a1b2c3d4-0004-4000-a000-000000000004",
+      "name": "Salva Config"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://evo.nsdigitalsolution.cloud/instance/create",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUA_API_KEY_AQUI" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ instanceName: $('Salva Config').item.json.instanceName, integration: 'WHATSAPP-BAILEYS', qrcode: true }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "continueOnFail": true,
+      "position": [380, 200],
+      "id": "c1d2e3f4-0001-4000-c000-000000000001",
+      "name": "Cria Instancia Evolution"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://evo.nsdigitalsolution.cloud/instance/connect/' + $('Salva Config').item.json.instanceName }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUA_API_KEY_AQUI" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [640, 200],
+      "id": "c1d2e3f4-0002-4000-c000-000000000002",
+      "name": "Pega QR Code Evolution"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://evo.nsdigitalsolution.cloud/webhook/set/' + $('Salva Config').item.json.instanceName }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUA_API_KEY_AQUI" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ url: 'https://n8n.nsdigitalsolution.cloud/webhook/496087a9-a462-4c89-b31b-2f18a0946c60', webhook_by_events: false, webhook_base64: false, events: ['MESSAGES_UPSERT'] }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "continueOnFail": true,
+      "position": [900, 200],
+      "id": "c1d2e3f4-0003-4000-c000-000000000003",
+      "name": "Configura Webhook Instancia"
+    },
+    {
+      "parameters": {
+        "jsCode": "const qrResponse = $('Pega QR Code Evolution').first().json;\nconst salvaConfig = $('Salva Config').first().json;\n\n// Evolution API /instance/connect retorna o QR como base64\nconst qrCode = qrResponse?.base64 || qrResponse?.qrcode?.base64 || '';\n\nreturn [{\n  json: {\n    success: true,\n    userId: salvaConfig.userId,\n    phone: salvaConfig.phone,\n    instanceName: salvaConfig.instanceName,\n    qrCode: qrCode,\n    message: salvaConfig.message\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1160, 200],
+      "id": "c1d2e3f4-0004-4000-c000-000000000004",
+      "name": "Formata Resposta QR"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { success: false, error: $json.error || 'Erro ao validar dados' } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-140, 480],
+      "id": "c1d2e3f4-0005-4000-c000-000000000005",
+      "name": "Formata Erro"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "check-connection",
+        "responseMode": "lastNode",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-688, 640],
+      "id": "c1d2e3f4-0006-4000-c000-000000000006",
+      "name": "Verifica Conexao",
+      "webhookId": "check-connection-webhook"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://evo.nsdigitalsolution.cloud/instance/connectionState/' + ($input.first().json.query?.instance || '') }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "SUA_API_KEY_AQUI" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "continueOnFail": true,
+      "position": [-400, 640],
+      "id": "c1d2e3f4-0007-4000-c000-000000000007",
+      "name": "Checa Status WhatsApp"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst state = data?.instance?.state || data?.state || 'unknown';\nconst connected = state === 'open';\nreturn [{ json: { connected, state } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-140, 640],
+      "id": "c1d2e3f4-0008-4000-c000-000000000008",
+      "name": "Formata Status"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "496087a9-a462-4c89-b31b-2f18a0946c60",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-688, 1280],
+      "id": "ac79340e-de60-4292-be28-f53c75762bc2",
+      "name": "Recebe mensagem",
+      "webhookId": "496087a9-a462-4c89-b31b-2f18a0946c60"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "bb5f3999-1", "name": "nome", "value": "={{ $json.body.data.pushName }}", "type": "string" },
+            { "id": "bb5f3999-2", "name": "telefone", "value": "={{ $json.body.data.key.remoteJid }}", "type": "string" },
+            { "id": "bb5f3999-3", "name": "tipo", "value": "={{ $json.body.data.messageType }}", "type": "string" },
+            { "id": "bb5f3999-4", "name": "mensagem", "value": "={{ $json.body.data.message.conversation }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-320, 1280],
+      "id": "c6d34148-c145-44ab-b0ba-004f974f476e",
+      "name": "Coleta"
+    },
+    {
+      "parameters": {
+        "jsCode": "const telefone = $json.telefone\n  .replace('@s.whatsapp.net', '')\n  .replace(/\\D/g, '');\n\nconst staticData = $getWorkflowStaticData('global');\nconst users = staticData.users || {};\n\nconst phoneVariants = [telefone, telefone.replace(/^55/, ''), '55' + telefone];\n\nlet config = null;\nfor (const variant of phoneVariants) {\n  if (users[variant]) { config = users[variant]; break; }\n}\n\nif (!config) {\n  config = {\n    aiName: 'Assistente',\n    tone: 'profissional',\n    style: 'direto',\n    behavior: 'objetivo',\n    businessContext: 'Assistente geral de atendimento ao cliente',\n    goal: 'suporte',\n    faq: [],\n    plan: 'Basico',\n    isDefault: true\n  };\n}\n\nreturn [{ json: { ...$json, userConfig: config } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-80, 1280],
+      "id": "b1c2d3e4-0001-4000-b000-000000000001",
+      "name": "Busca Config Usuario"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose", "version": 2 },
+                "conditions": [{ "leftValue": "={{ $('Recebe mensagem').item.json.body.data.messageType }}", "rightValue": "conversation", "operator": { "type": "string", "operation": "equals" }, "id": "9187681f-1" }],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "texto"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose", "version": 2 },
+                "conditions": [{ "id": "f21fa68b-1", "leftValue": "={{ $('Recebe mensagem').item.json.body.data.messageType }}", "rightValue": "audioMessage", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Audio"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose", "version": 2 },
+                "conditions": [{ "id": "dd71e80b-1", "leftValue": "={{ $('Recebe mensagem').item.json.body.data.messageType }}", "rightValue": "imageMessage", "operator": { "type": "string", "operation": "equals" } }],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Imagem"
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [160, 1264],
+      "id": "b7ae34ef-5dd9-4122-b578-343e46282da7",
+      "name": "Verifica tipo de arquivo"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "cd3e8236-1", "name": "mensagem", "value": "={{ $json.mensagem }}", "type": "string" },
+            { "id": "cd3e8236-2", "name": "userConfig", "value": "={{ JSON.stringify($json.userConfig) }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [416, 1248],
+      "id": "be8fbb89-eec2-4841-bf70-18de5d9c6bc3",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "const config = typeof $json.userConfig === 'string' ? JSON.parse($json.userConfig) : $json.userConfig;\n\nconst toneMap = {\n  profissional: 'profissional e formal. Transmita confianca e seriedade',\n  amigavel: 'amigavel e acolhedor. Use um tom proximo e simpatico',\n  casual: 'casual e descontraido. Fale de forma leve e natural',\n  persuasivo: 'persuasivo e envolvente. Use gatilhos de interesse e urgencia'\n};\nconst styleMap = {\n  direto: 'Seja direto e objetivo. Respostas curtas e praticas',\n  detalhado: 'Seja detalhado e completo. Explique com clareza cada ponto',\n  consultivo: 'Seja consultivo. Faca perguntas para entender melhor antes de responder',\n  agressivo: 'Seja focado em conversao. Sempre direcione para a venda ou acao',\n  simples: 'Use linguagem simples e facil. Evite termos tecnicos'\n};\nconst goalMap = {\n  vender: 'vender produtos e servicos. Guie o cliente naturalmente ate a compra',\n  suporte: 'fornecer suporte ao cliente. Resolva duvidas e problemas com eficiencia',\n  leads: 'captar leads qualificados. Colete informacoes de contato de forma natural',\n  agendamento: 'agendar horarios. Ajude o cliente a encontrar o melhor horario disponivel'\n};\nconst behaviorMap = {\n  objetivo: 'Seja objetivo e va direto ao ponto.',\n  conversacional: 'Mantenha um tom conversacional, como um bate-papo natural.',\n  vendas: 'Sempre direcione para oportunidades de venda.',\n  suporte: 'Priorize resolver o problema do cliente. Seja paciente e empatico.'\n};\n\nlet faqBlock = '';\nif (config.faq && config.faq.length > 0) {\n  const faqItems = config.faq.slice(0, 5).map(f => 'Pergunta: ' + f.q + '\\nResposta: ' + f.a).join('\\n\\n');\n  faqBlock = '\\n\\n---\\nPERGUNTAS FREQUENTES:\\n\\n' + faqItems;\n}\n\nconst systemPrompt = 'Voce e ' + (config.aiName || 'Assistente') + ', um assistente virtual.\\n\\nNEGOCIO: ' + (config.businessContext || 'Atendimento geral.') + '\\n\\nTOM: ' + (toneMap[config.tone] || toneMap.profissional) + '.\\n\\nESTILO: ' + (styleMap[config.style] || styleMap.direto) + '.\\n\\nCOMPORTAMENTO: ' + (behaviorMap[config.behavior] || behaviorMap.objetivo) + '\\n\\nOBJETIVO: ' + (goalMap[config.goal] || goalMap.suporte) + '.\\n\\nRegras:\\n- Responda em portugues brasileiro\\n- Nunca invente informacoes\\n- Respostas curtas para WhatsApp\\n- Negrito: *palavra*\\n- Se pedir humano: Entendido! Vou chamar um atendente agora.' + faqBlock;\n\nreturn [{ json: { ...$json, systemPrompt } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [624, 1248],
+      "id": "b1c2d3e4-0002-4000-b000-000000000002",
+      "name": "Monta Prompt Dinamico"
+    },
+    {
+      "parameters": { "numberInputs": 2 },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [840, 1264],
+      "id": "cca31666-8dee-49dd-8450-e78e7fd022ac",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.mensagem }}",
+        "options": { "systemMessage": "={{ $json.systemPrompt }}" }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [1040, 1280],
+      "id": "56cd7eb6-8d47-4326-a685-3b1d534e767a",
+      "name": "AGENTE DE I.A.",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "const texto = $input.first().json.output;\nconst itens = texto.split(/\\\\/);\nreturn itens.filter(item => item.trim() !== '').map(item => ({ item }));"
+      },
+      "id": "774532b6-775e-42c5-abd2-d46862a26306",
+      "name": "SEPARA MENSAGENS2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 1280]
+    },
+    {
+      "parameters": { "options": {} },
+      "id": "deb063cc-a611-4fb8-8a16-2c99ab12ce21",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1568, 1280]
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "={{ $('Recebe mensagem').item.json.body.instance }}",
+        "remoteJid": "={{ $('Recebe mensagem').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.item }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [1808, 1280],
+      "id": "c54b968c-4cba-403d-a85f-96bcd1682e59",
+      "name": "Envia mensagem para o WhatsApp",
+      "credentials": {
+        "evolutionApi": {
+          "id": "UoINHVYhEbBqZDED",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": { "amount": 1 },
+      "id": "c568ebb8-9287-4e2b-a8ed-00ec491efc1f",
+      "name": "DELAY 1 SEGUNDO",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2040, 1280],
+      "webhookId": "fd18a6ad-e2c8-4f98-9274-0c7f87a10826"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Coleta').item.json.telefone }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [1120, 1584],
+      "id": "0bdc4b4e-2bb8-4918-a128-7a695b1b5d50",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [960, 1584],
+      "id": "caf79beb-2b0a-4cdd-b199-d816e6b656a3",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "R9qmYkBVoats60IT",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## FLUXO 1: Setup + WhatsApp\n\nEndpoint: POST /webhook/setup-user\n\n1. Valida dados do wizard\n2. Salva config no Static Data\n3. Cria instancia no Evolution (HTTP)\n4. Pega QR Code (HTTP)\n5. Configura webhook (HTTP)\n6. Retorna QR Code para frontend\n\n!! ATUALIZAR API KEY nos 3 nodes:\n- Cria Instancia Evolution\n- Pega QR Code Evolution\n- Configura Webhook Instancia\n- Checa Status WhatsApp",
+        "height": 400,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [-1100, 120],
+      "typeVersion": 1,
+      "id": "a1b2c3d4-0007-4000-a000-000000000007",
+      "name": "Sticky Note Setup"
+    },
+    {
+      "parameters": {
+        "content": "## FLUXO 2: Check Connection\n\nEndpoint:\nGET /webhook/check-connection\n  ?instance=ia_5511970114045\n\nFrontend faz polling a cada 3s.\nRetorna: { connected: true/false }",
+        "height": 240,
+        "width": 280,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [-1100, 580],
+      "typeVersion": 1,
+      "id": "c1d2e3f4-0010-4000-c000-000000000010",
+      "name": "Sticky Note Check"
+    },
+    {
+      "parameters": {
+        "content": "## FLUXO 3: WhatsApp Bot\n\nRecebe mensagens via Evolution API.\nBusca config do usuario no Static Data.\nMonta prompt dinamico por cliente.\n\nStatic Data COMPARTILHADO entre\ntodos os fluxos (mesmo workflow).",
+        "height": 240,
+        "width": 300,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [-1100, 900],
+      "typeVersion": 1,
+      "id": "b1c2d3e4-0010-4000-b000-000000000010",
+      "name": "Sticky Note Bot"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Recebe Onboarding": {
+      "main": [[{ "node": "Valida Dados", "type": "main", "index": 0 }]]
+    },
+    "Valida Dados": {
+      "main": [[{ "node": "Dados Validos", "type": "main", "index": 0 }]]
+    },
+    "Dados Validos": {
+      "main": [
+        [{ "node": "Salva Config", "type": "main", "index": 0 }],
+        [{ "node": "Formata Erro", "type": "main", "index": 0 }]
+      ]
+    },
+    "Salva Config": {
+      "main": [[{ "node": "Cria Instancia Evolution", "type": "main", "index": 0 }]]
+    },
+    "Cria Instancia Evolution": {
+      "main": [[{ "node": "Pega QR Code Evolution", "type": "main", "index": 0 }]]
+    },
+    "Pega QR Code Evolution": {
+      "main": [[{ "node": "Configura Webhook Instancia", "type": "main", "index": 0 }]]
+    },
+    "Configura Webhook Instancia": {
+      "main": [[{ "node": "Formata Resposta QR", "type": "main", "index": 0 }]]
+    },
+    "Verifica Conexao": {
+      "main": [[{ "node": "Checa Status WhatsApp", "type": "main", "index": 0 }]]
+    },
+    "Checa Status WhatsApp": {
+      "main": [[{ "node": "Formata Status", "type": "main", "index": 0 }]]
+    },
+    "Recebe mensagem": {
+      "main": [[{ "node": "Coleta", "type": "main", "index": 0 }]]
+    },
+    "Coleta": {
+      "main": [[{ "node": "Busca Config Usuario", "type": "main", "index": 0 }]]
+    },
+    "Busca Config Usuario": {
+      "main": [[{ "node": "Verifica tipo de arquivo", "type": "main", "index": 0 }]]
+    },
+    "Verifica tipo de arquivo": {
+      "main": [[{ "node": "Edit Fields", "type": "main", "index": 0 }]]
+    },
+    "Edit Fields": {
+      "main": [[{ "node": "Monta Prompt Dinamico", "type": "main", "index": 0 }]]
+    },
+    "Monta Prompt Dinamico": {
+      "main": [[{ "node": "Merge", "type": "main", "index": 0 }]]
+    },
+    "Merge": {
+      "main": [[{ "node": "AGENTE DE I.A.", "type": "main", "index": 0 }]]
+    },
+    "AGENTE DE I.A.": {
+      "main": [[{ "node": "SEPARA MENSAGENS2", "type": "main", "index": 0 }]]
+    },
+    "SEPARA MENSAGENS2": {
+      "main": [[{ "node": "Loop Over Items1", "type": "main", "index": 0 }]]
+    },
+    "Loop Over Items1": {
+      "main": [[], [{ "node": "Envia mensagem para o WhatsApp", "type": "main", "index": 0 }]]
+    },
+    "Envia mensagem para o WhatsApp": {
+      "main": [[{ "node": "DELAY 1 SEGUNDO", "type": "main", "index": 0 }]]
+    },
+    "DELAY 1 SEGUNDO": {
+      "main": [[{ "node": "Loop Over Items1", "type": "main", "index": 0 }]]
+    },
+    "Simple Memory": {
+      "ai_memory": [[{ "node": "AGENTE DE I.A.", "type": "ai_memory", "index": 0 }]]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [[{ "node": "AGENTE DE I.A.", "type": "ai_languageModel", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": { "executionOrder": "v1" },
+  "meta": { "templateCredsSetupCompleted": true },
+  "tags": [{ "name": "whatsapp" }, { "name": "unified" }]
+}
